@@ -1,5 +1,11 @@
+import java.awt.Desktop;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.NumberFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Locale;
 
 public class StatementPrinter {
 
@@ -46,4 +52,15 @@ public class StatementPrinter {
     return result;
   }
 
+  public void toHTML(String result) throws IOException{
+    File f = new File("source.html");
+    BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+    bw.write("<html>");
+    bw.write("<p>");
+    bw.write(result);
+    bw.write("</p>");
+    bw.write("</body></html>");
+    bw.close();
+    Desktop.getDesktop().browse(f.toURI());
+  }
 }

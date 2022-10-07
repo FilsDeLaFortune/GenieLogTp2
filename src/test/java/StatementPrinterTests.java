@@ -14,8 +14,8 @@ public class StatementPrinterTests {
 
         HashMap<String, Play> plays = new HashMap<>();
         plays.put("hamlet",  new Play("Hamlet", "tragedy"));
-        plays.put("hamlet",  new Play("As You Like It", "comedy"));
-        plays.put("hamlet",  new Play("Othello", "tragedy"));
+        plays.put("as-like",  new Play("As You Like It", "comedy"));
+        plays.put("othello",  new Play("Othello", "tragedy"));
 
         Invoice invoice = new Invoice("BigCo", List.of(
             new Performance("hamlet", 55),
