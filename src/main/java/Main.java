@@ -17,12 +17,7 @@ public class Main {
             new Performance("othello", 40)));
 
         StatementPrinter statementPrinter = new StatementPrinter();
-        String res = statementPrinter.print(invoice, plays);
-        System.out.println(res);
-        statementPrinter.toHTML(res);
-        
+        System.out.println(statementPrinter.print(invoice, plays));
+        statementPrinter.printToHTML(invoice, plays);
     }
-
-    
-        
 }
