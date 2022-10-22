@@ -66,18 +66,32 @@ public class PrintedInvoice{
 
     bw.write("<body>");
 
-    bw.write("<h3><strong>Invoice</strong></h3>");
-    bw.write(String.format("Client : %s </br>", client));
+    bw.write("<h3><b>Invoice</b></h3>");
+    bw.write(String.format("<b>Client :</b> %s", client));
     bw.write("<table>\n");
-    bw.write("<thead><tr>\n");
 
+    bw.write("<thead><tr>\n");
     bw.write("<th>Piece</th>\n");
     bw.write("<th>Seats Sold</th>\n");
     bw.write("<th>Price</th>\n");
-
     bw.write("</tr></thead>\n");
+
+    bw.write("<tbody>\n");
+
+    for(Seat s : seats){
+        bw.write("<tr>");
+        bw.write(String.format("<td>%s</td>",s.name));
+        bw.write(String.format("<td>%s</td>",s.audience));
+        bw.write(String.format("<td>%s</td>",frmt.format(s.price)));
+        bw.write("</tr>");
+    }
+    bw.write(String.format("<tr><td colspan=2>Total owed</td><td>%s</td></tr>", frmt.format(totalAmount)));
+    bw.write(String.format("<tr><td colspan=2>Fidelity points earned</td><td>%s</td></tr>", volumeCredits));
+    bw.write("</tbody>\n");
     bw.write("</table>\n");
-    
+
+    bw.write("<p><i>Payment required in 30 days.</i></p>");
+
     bw.write("</body>\n");
 
     bw.write("</html>\n");
