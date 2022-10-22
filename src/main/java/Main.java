@@ -7,9 +7,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         HashMap<String, Play> plays = new HashMap<>();
-        plays.put("hamlet",  new Play("Hamlet", "tragedy"));
-        plays.put("as-like",  new Play("As You Like It", "comedy"));
-        plays.put("othello",  new Play("Othello", "tragedy"));
+        plays.put("hamlet", new Tragedy("Hamlet"));
+        plays.put("as-like", new Comedy("As You Like It"));
+        plays.put("othello", new Tragedy("Othello"));
 
         Invoice invoice = new Invoice("BigCo", List.of(
             new Performance("hamlet", 55),
@@ -18,6 +18,7 @@ public class Main {
 
         StatementPrinter statementPrinter = new StatementPrinter();
         String res = statementPrinter.print(invoice, plays);
+        System.out.println(res);
         statementPrinter.toHTML(res);
         
     }

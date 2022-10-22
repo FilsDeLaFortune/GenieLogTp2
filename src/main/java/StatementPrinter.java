@@ -1,66 +1,24 @@
-import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.NumberFormat;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class StatementPrinter {
 
   public String print(Invoice invoice, HashMap<String, Play> plays) {
-    int totalAmount = 0;
-    int volumeCredits = 0;
-    String result = String.format("Statement for %s\n", invoice.customer);
-
-    NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
-
-    for (Performance perf : invoice.performances) {
-      Play play = plays.get(perf.playID);
-      int thisAmount = 0;
-
-      switch (play.type) {
-        case "tragedy":
-          thisAmount = 40000;
-          if (perf.audience > 30) {
-            thisAmount += 1000 * (perf.audience - 30);
-          }
-          break;
-        case "comedy":
-          thisAmount = 30000;
-          if (perf.audience > 20) {
-            thisAmount += 10000 + 500 * (perf.audience - 20);
-          }
-          thisAmount += 300 * perf.audience;
-          break;
-        default:
-          throw new Error("unknown type: ${play.type}");
-      }
-
-      // add volume credits
-      volumeCredits += Math.max(perf.audience - 30, 0);
-      // add extra credit for every ten comedy attendees
-      if ("comedy".equals(play.type)) volumeCredits += Math.floor(perf.audience / 5);
-
-      // print line for this order
-      result += String.format("  %s: %s (%s seats)\n", play.name, frmt.format(thisAmount / 100), perf.audience);
-      totalAmount += thisAmount;
-    }
-    result += String.format("Amount owed is %s\n", frmt.format(totalAmount / 100));
-    result += String.format("You earned %s credits\n", volumeCredits);
-    return result;
+    PrintedInvoice pi = new PrintedInvoice(invoice, plays);
+    return pi.print();
   }
 
   public void toHTML(String result) throws IOException{
     File f = new File("source.html");
     BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-    bw.write("<html>");
-    bw.write("<p>");
+    bw.write("<html>\n");
+    bw.write("<p>\n");
     bw.write(result);
-    bw.write("</p>");
-    bw.write("</body></html>");
+    bw.write("</p>\n");
+    bw.write("</body>\n</html>\n");
     bw.close();
-    Desktop.getDesktop().browse(f.toURI());
   }
 }
