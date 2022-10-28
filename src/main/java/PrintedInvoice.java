@@ -14,7 +14,7 @@ public class PrintedInvoice{
 
     float totalAmount = 0;
     int volumeCredits = 0;
-    String client;
+    Customer client;
 
     List <Seat> seats = new ArrayList<Seat>();
     StringBuffer str = new StringBuffer();
@@ -32,18 +32,18 @@ public class PrintedInvoice{
             // Permet un stockage facile des 3 valeurs pour le print d'après
             s.name = play.name; 
             s.audience = perf.audience;
-            s.price = play.price(perf.audience);
+            s.price = play.price(client,perf.audience);
 
             // Remontée des informations
             totalAmount += s.price;
-            volumeCredits += play.bonus(perf.audience);
+            volumeCredits += play.bonus(client,perf.audience);
             seats.add(s);
         }
     }
 
     // Faire printToString et printToHTML
     public String printToString(){
-        str.append(String.format("Statement for %s\n", client));
+        str.append(String.format("Statement for %s\n", client.name));
         for(Seat s : seats){
             str.append(String.format("  %s: %s (%s seats)\n", s.name, frmt.format(s.price), s.audience));
         }
@@ -65,17 +65,14 @@ public class PrintedInvoice{
     bw.write("</head>");
 
     bw.write("<body>");
-
     bw.write("<h3><b>Invoice</b></h3>");
-    bw.write(String.format("<b>Client :</b> %s", client));
+    bw.write(String.format("<b>Client :</b> %s", client.name));
     bw.write("<table>\n");
-
     bw.write("<thead><tr>\n");
     bw.write("<th>Piece</th>\n");
     bw.write("<th>Seats Sold</th>\n");
     bw.write("<th>Price</th>\n");
     bw.write("</tr></thead>\n");
-
     bw.write("<tbody>\n");
 
     for(Seat s : seats){
@@ -89,11 +86,8 @@ public class PrintedInvoice{
     bw.write(String.format("<tr><td colspan=2>Fidelity points earned</td><td>%s</td></tr>", volumeCredits));
     bw.write("</tbody>\n");
     bw.write("</table>\n");
-
     bw.write("<p><i>Payment required in 30 days.</i></p>");
-
     bw.write("</body>\n");
-
     bw.write("</html>\n");
 
     bw.close();

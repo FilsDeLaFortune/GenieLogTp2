@@ -6,6 +6,6 @@ public abstract class Play {
     this.name = name;
   }
 
-  public abstract float price(int audience);
-  public abstract float bonus(int audience);
+  public abstract float price(Customer c, int audience);
+  public abstract float bonus(Customer c, int audience);
 }

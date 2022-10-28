@@ -11,7 +11,10 @@ public class Main {
         plays.put("as-like", new Comedy("As You Like It"));
         plays.put("othello", new Tragedy("Othello"));
 
-        Invoice invoice = new Invoice("BigCo", List.of(
+        Customer c = new Customer();
+        c.name = "BigCo";
+
+        Invoice invoice = new Invoice(c, List.of(
             new Performance("hamlet", 55),
             new Performance("as-like", 35),
             new Performance("othello", 40)));
