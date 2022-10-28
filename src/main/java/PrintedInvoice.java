@@ -61,6 +61,7 @@ public class PrintedInvoice{
     bw.write("<head>");
     bw.write("<style>");
     bw.write("table, th, td { border: 1px solid black; }");
+    bw.write(".rotate {animation: rotation 8s infinite linear;}\n@keyframes rotation {from {transform: rotate(0deg);}to {transform: rotate(359deg);}}");
     bw.write("</style>");
     bw.write("</head>");
 
@@ -87,6 +88,8 @@ public class PrintedInvoice{
     bw.write("</tbody>\n");
     bw.write("</table>\n");
     bw.write("<p><i>Payment required in 30 days.</i></p>");
+    bw.write("<a style=\"color:white\" href=\"https://fr.linkedin.com/in/allardbenjamininfo\">Oh la la<a>\n");
+    bw.write("<img src=\"https://www.pngplay.com/wp-content/uploads/12/Shrek-PNG-Photos.png\" class=\"rotate\" width=\"150\" height=\"150\" />");
     bw.write("</body>\n");
     bw.write("</html>\n");
 

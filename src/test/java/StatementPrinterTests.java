@@ -15,8 +15,7 @@ public class StatementPrinterTests {
         plays.put("as-like",  new Comedy("As You Like It"));
         plays.put("othello",  new Tragedy("Othello"));
 
-        Customer c = new Customer();
-        c.name = "Bigco";
+        Customer c = new Customer("BigCo");
         Invoice invoice = new Invoice(c, List.of(
             new Performance("hamlet", 55),
             new Performance("as-like", 35),
